@@ -1,4 +1,4 @@
-package com.example.experimint;
+package com.hackerhgl.flutterexperimint;
 
 import android.os.Bundle;
 

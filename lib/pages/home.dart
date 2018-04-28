@@ -12,9 +12,13 @@ class Home extends StatelessWidget {
           children: <Widget>[
             new Text('hello'),
             new RaisedButton(
-              child: new Text('button'),
+              child: new Text('buttre'),
               onPressed: () => Navigator.of(context).pushNamed('/screen'),
-            )
+            ),
+            new RaisedButton(
+              child: new Text('Friendly Chat'),
+              onPressed: () => Navigator.of(context).pushNamed('/friendlyChat'),
+            ),
           ],
         ),
       ),

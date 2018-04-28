@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'Navigator.dart' as AppNavigator;
+import 'AppNavigator.dart';
 
 void main() {
-  runApp(new AppNavigator.Navigator());
+  runApp(new AppNavigator());
 }

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class IconButtonWidget extends StatelessWidget {
-  IconButtonWidget({this.onPressed, this.child});
-  final onPressed;
+  IconButtonWidget({this.onPressed, this.iosChild, this.child});
+  final VoidCallback onPressed;
+  final Widget iosChild;
   final Widget child;
 
   @override
@@ -14,7 +15,7 @@ class IconButtonWidget extends StatelessWidget {
       ),
       child: Theme.of(context).platform == TargetPlatform.iOS
           ? new CupertinoButton(
-              child: child,
+              child: this.iosChild == null ? this.child : this.iosChild,
               onPressed: onPressed,
             )
           : new IconButton(

@@ -61,10 +61,10 @@ class ChatScreenState extends State<ChatScreen> {
 
   Future<Null> _sendPhoto() async {
     await AuthFirebase.auth();
-    File image = await ImagePicker.pickImage();
+    File image = await ImagePicker.pickImage(source: ImageSource.gallery);
     int random = Random().nextInt(100000);
     StorageReference ref = StorageFirebase.getRef("image_$random");
-    StorageDataUploadTask task = ref.put(image);
+    var task = ref.putFile(image);
     Uri url = (await task.future).downloadUrl;
     _sendMessage(image: url.toString());
   }

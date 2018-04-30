@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_database/firebase_database.dart';
 
-import 'package:experimint/Servcies/Firebase/Auth.dart';
-
 class ChatMessage extends StatelessWidget {
   ChatMessage({this.snapshot, this.animation});
   final DataSnapshot snapshot;
@@ -11,7 +9,6 @@ class ChatMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new SizeTransition(
       sizeFactor: new CurvedAnimation(
         parent: animation,
@@ -41,12 +38,12 @@ class ChatMessage extends StatelessWidget {
                   ),
                   new Container(
                     margin: const EdgeInsets.only(top: 4.0),
-                    child: snapshot.value['imageUrl'] != null
+                    child: snapshot.value['image'] != null
                         ? new Image.network(
                             snapshot.value['image'],
                             width: 250.0,
                           )
-                        : new Text(snapshot.value['text']),
+                        : new Text(snapshot.value['text'] ?? "XX"),
                   ),
                 ],
               ),

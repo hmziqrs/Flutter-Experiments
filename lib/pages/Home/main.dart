@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:experimint/Widgets/GradientButton.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -17,38 +18,10 @@ class HomeScreen extends StatelessWidget {
                   child: new Text('buttre'),
                   onPressed: () => Navigator.of(context).pushNamed('/screen'),
                 ),
-                new Container(
-                  decoration: new BoxDecoration(
-                    gradient: new LinearGradient(
-                      begin: const Alignment(1.0, 0.5),
-                      end: const Alignment(0.0, 0.0),
-                      colors: <Color>[
-                        Colors.red,
-                        Colors.pink,
-                      ],
-                    ),
-                    borderRadius: const BorderRadius.all(
-                      const Radius.circular(4.0),
-                    ),
-                  ),
-                  child: new Material(
-                    color: Colors.transparent,
-                    borderRadius: const BorderRadius.all(
-                      const Radius.circular(4.0),
-                    ),
-                    child: new InkWell(
-                      splashColor: Colors.black,
-                      child: new Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0,
-                          vertical: 10.0,
-                        ),
-                        child: new Text('Friendly Chat'),
-                      ),
-                      onTap: () => null,
-                      // Navigator.of(context).pushNamed('/friendlyChat'),
-                    ),
-                  ),
+                new GradientButton(
+                  child: new Text('Friendly Chat'),
+                  onPress: () =>
+                      Navigator.of(context).pushNamed('/friendlyChat'),
                 ),
               ],
             ),

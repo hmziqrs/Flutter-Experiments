@@ -23,6 +23,11 @@ class HomeScreen extends StatelessWidget {
                   onPress: () =>
                       Navigator.of(context).pushNamed('/friendlyChat'),
                 ),
+                new GradientButton(
+                  child: new Text('Shoes Concept'),
+                  onPress: () =>
+                      Navigator.of(context).pushNamed('/shoesConcept'),
+                ),
               ],
             ),
           )

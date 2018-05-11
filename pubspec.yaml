@@ -38,6 +38,9 @@ flutter:
    - assets/Asics_Logo_1.png
    - assets/Asics_Logo_2.png
    - assets/Asics_Logo_3.png
+   - assets/shoes/blue.png
+   - assets/shoes/yellow.png
+   - assets/shoes/red.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 

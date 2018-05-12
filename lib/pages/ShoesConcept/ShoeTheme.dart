@@ -10,7 +10,25 @@ class ShoeTheme {
   static TextStyle headerDescription() => new TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.w400,
-        fontSize: 15.0,
+        fontSize: 14.0,
         height: 1.06,
+      );
+
+  static TextStyle contentHeading({color = Colors.black}) => new TextStyle(
+        color: color,
+        fontWeight: FontWeight.w700,
+        fontSize: 24.0,
+      );
+
+  static TextStyle contentSubHeading({color = Colors.grey}) => new TextStyle(
+        color: color,
+        fontWeight: FontWeight.w500,
+        fontSize: 15.0,
+      );
+
+  static TextStyle contentBadge({color = Colors.white}) => new TextStyle(
+        color: color,
+        fontWeight: FontWeight.w500,
+        fontSize: 15.0,
       );
 }

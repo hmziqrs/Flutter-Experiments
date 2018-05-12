@@ -20,7 +20,7 @@ class ContentSection extends StatelessWidget {
   final List<Color> colors;
   final Color currentColor;
 
-  static const List<int> _ratings = <int>[1, 2, 3, 4, 5];
+  List<int> _ratings = <int>[1, 2, 3, 4, 5];
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,10 @@ class ContentSection extends StatelessWidget {
           ),
           new Row(
             children: <Widget>[
-              _ratings.map(v => new Icon(Icons.star),),
+              new IconButton(
+                icon: new Icon(Icons.star),
+                onPressed: () {},
+              )
             ],
           )
         ],

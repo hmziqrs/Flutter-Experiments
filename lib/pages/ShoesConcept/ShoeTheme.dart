@@ -31,4 +31,18 @@ class ShoeTheme {
         fontWeight: FontWeight.w500,
         fontSize: 15.0,
       );
+
+  static TextStyle sizeHeading({color = Colors.black}) => new TextStyle(
+        height: 1.0,
+        color: color,
+        fontWeight: FontWeight.w800,
+        fontSize: 14.0,
+      );
+
+  static TextStyle colorHeading({color = Colors.black}) => new TextStyle(
+        height: 1.0,
+        color: color,
+        fontWeight: FontWeight.w800,
+        fontSize: 14.0,
+      );
 }

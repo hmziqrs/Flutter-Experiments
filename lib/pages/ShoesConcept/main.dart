@@ -89,8 +89,8 @@ class ContentState extends State<Content> {
   @override
   initState() {
     super.initState();
-    print(this.colors);
-    print(_currentColor);
+    // print(this.colors);
+    // print(_currentColor);
   }
 
   final double _contnetHeight = 280.0;
@@ -109,14 +109,19 @@ class ContentState extends State<Content> {
           headerHeight: _headerHeight,
           gradientColors: this.colors,
         ),
-        new ContentSection(
-          headerHeight: _headerHeight,
-          contnetHeight: this._contnetHeight,
-          contentHeading: this.contentHeading,
-          contentSubHeading: this.contentSubHeading,
-          contentBadge: this.contentBadge,
-          colors: this.colors,
-          currentColor: this._currentColor,
+        new Positioned(
+          top: _headerHeight,
+          left: 0.0,
+          right: 0.0,
+          height: _contnetHeight,
+          child: new ContentSection(
+            headerHeight: _headerHeight,
+            contentHeading: this.contentHeading,
+            contentSubHeading: this.contentSubHeading,
+            contentBadge: this.contentBadge,
+            colors: this.colors,
+            currentColor: this._currentColor,
+          ),
         ),
         new Positioned(
           top: 230.0,

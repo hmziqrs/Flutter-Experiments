@@ -17,7 +17,7 @@ class ShoeTheme {
   static TextStyle contentHeading({color = Colors.black}) => new TextStyle(
         color: color,
         fontWeight: FontWeight.w700,
-        fontSize: 24.0,
+        fontSize: 22.0,
       );
 
   static TextStyle contentSubHeading({color = Colors.grey}) => new TextStyle(

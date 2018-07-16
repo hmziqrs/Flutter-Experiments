@@ -10,6 +10,7 @@ class ContentSection extends StatefulWidget {
     this.contentBadge,
     this.colors,
     this.currentColor,
+    this.changeCurrentColor,
   });
   final double headerHeight;
   final String contentHeading;
@@ -17,34 +18,13 @@ class ContentSection extends StatefulWidget {
   final String contentBadge;
   final List<Color> colors;
   final Color currentColor;
+  final void Function(Color) changeCurrentColor;
 
   @override
-  State<StatefulWidget> createState() => new ContentSectionState(
-        headerHeight: headerHeight,
-        contentHeading: this.contentHeading,
-        contentSubHeading: this.contentSubHeading,
-        contentBadge: this.contentBadge,
-        colors: this.colors,
-        currentColor: this.currentColor,
-      );
+  State<StatefulWidget> createState() => new ContentSectionState();
 }
 
 class ContentSectionState extends State<ContentSection> {
-  ContentSectionState({
-    this.headerHeight,
-    this.contentHeading,
-    this.contentSubHeading,
-    this.contentBadge,
-    this.colors,
-    this.currentColor,
-  });
-  final double headerHeight;
-  final String contentHeading;
-  final String contentSubHeading;
-  final String contentBadge;
-  final List<Color> colors;
-  final Color currentColor;
-
   static const List<int> _ratings = <int>[1, 2, 3, 4, 5];
   static const List<int> _sizes = <int>[7, 8, 9, 10, 11];
 
@@ -86,11 +66,11 @@ class ContentSectionState extends State<ContentSection> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   new Text(
-                    this.contentHeading,
+                    this.widget.contentHeading,
                     style: ShoeTheme.contentHeading(),
                   ),
                   new Text(
-                    this.contentSubHeading,
+                    this.widget.contentSubHeading,
                     style: ShoeTheme.contentSubHeading(),
                   ),
                 ],
@@ -100,14 +80,14 @@ class ContentSectionState extends State<ContentSection> {
                   borderRadius: const BorderRadius.all(
                     const Radius.circular(4.0),
                   ),
-                  color: this.currentColor,
+                  color: widget.currentColor,
                 ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24.0,
                   vertical: 10.0,
                 ),
                 child: new Text(
-                  this.contentBadge,
+                  this.widget.contentBadge,
                   style: ShoeTheme.contentBadge(),
                 ),
               ),
@@ -127,13 +107,14 @@ class ContentSectionState extends State<ContentSection> {
                           child: new IconButton(
                             iconSize: 18.0,
                             color: v <= _currentRating
-                                ? currentColor
+                                ? this.widget.currentColor
                                 : Colors.grey,
                             icon: new Icon(
                               Icons.star,
                             ),
                             onPressed: () => this._setRating(v),
-                            splashColor: currentColor.withOpacity(0.2),
+                            splashColor:
+                                this.widget.currentColor.withOpacity(0.2),
                           ),
                         ),
                       ),
@@ -143,9 +124,12 @@ class ContentSectionState extends State<ContentSection> {
           new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              new Text(
-                "SIZE",
-                style: ShoeTheme.sizeHeading(),
+              new Container(
+                margin: const EdgeInsets.only(top: 16.0),
+                child: new Text(
+                  "SIZE",
+                  style: ShoeTheme.sizeHeading(),
+                ),
               ),
               new Row(
                 children: _sizes
@@ -180,37 +164,57 @@ class ContentSectionState extends State<ContentSection> {
             ],
           ),
           new Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               new Container(
-                margin: const EdgeInsets.only(top: 8.0),
+                margin: const EdgeInsets.only(top: 18.0, bottom: 12.0),
                 child: new Text(
                   "COLOUR",
                   style: ShoeTheme.colorHeading(),
                 ),
               ),
-              new Row(
-                children: this
-                    .colors
-                    .map(
-                      (color) => new Container(
-                            width: 40.0,
-                            height: 40.0,
-                            decoration: new BoxDecoration(
-                              color: color,
-                              borderRadius: new BorderRadius.circular(20.0),
-                            ),
-                            child: new Container(
-                              child: null,
+              new Container(
+                alignment: FractionalOffset.center,
+                child: new Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: this
+                      .widget
+                      .colors
+                      .map(
+                        (color) => new Container(
+                              width: 18.0,
+                              height: 18.0,
+                              margin: const EdgeInsets.only(right: 24.0),
                               decoration: new BoxDecoration(
-                                borderRadius: new BorderRadius.circular(20.0),
-                                border: new Border.all(color: color),
+                                color: color,
+                                borderRadius: new BorderRadius.circular(9.0),
+                              ),
+                              transform: color == this.widget.currentColor
+                                  ? (new Matrix4.identity()
+                                    ..scale(1.2)
+                                    ..translate(-1.8, -1.8))
+                                  : null,
+                              child: new InkWell(
+                                onTap: () =>
+                                    this.widget.changeCurrentColor(color),
+                                child: new Container(
+                                  decoration: new BoxDecoration(
+                                    borderRadius:
+                                        new BorderRadius.circular(9.0),
+                                    border: color == this.widget.currentColor
+                                        ? new Border.all(
+                                            color: color, width: 1.0)
+                                        : null,
+                                  ),
+                                  transform: new Matrix4.identity()
+                                    ..scale(1.6, 1.6)
+                                    ..translate(-3.4, -3.4),
+                                ),
                               ),
                             ),
-                            alignment: FractionalOffset.center,
-                            transform: new Matrix4.identity()..scale(1.5, 1.5),
-                          ),
-                    )
-                    .toList(),
+                      )
+                      .toList(),
+                ),
               ),
             ],
           ),

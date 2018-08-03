@@ -50,110 +50,99 @@ var data = [
   },
 ];
 
-class ShoesConcept extends StatefulWidget {
+class ShoesConceptOptimize extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new ShoesConceptState();
+  State<StatefulWidget> createState() => new ShoesConceptOptimizeState();
 }
 
-class ShoesConceptState extends State<ShoesConcept>
-    with TickerProviderStateMixin {
+class ShoesConceptOptimizeState extends State<ShoesConceptOptimize> {
   double scrollPercant = 0.0;
-  Offset startDarg;
+  double startDarg;
   double startDargPercantScroll;
   double finishScrollStart;
   double finishScrollEnd;
-  AnimationController finishScrollController;
+  ScrollController _scrollController = new ScrollController();
 
   @override
   initState() {
-    finishScrollController = new AnimationController(
-      duration: new Duration(milliseconds: 150),
-      vsync: this,
-    )..addListener(() {
-        setState(() {
-          scrollPercant = lerpDouble(
-              finishScrollStart, finishScrollEnd, finishScrollController.value);
-        });
-      });
     super.initState();
   }
 
   @override
   dispose() {
     super.dispose();
-    finishScrollController.dispose();
   }
 
-  void _onHorizontalDragStart(DragStartDetails detail) {
-    startDarg = detail.globalPosition;
-    startDargPercantScroll = scrollPercant;
-  }
-
-  void _onHorizontalDragUpdate(DragUpdateDetails detail) {
-    final currDrag = detail.globalPosition;
-    final dragDistance = currDrag.dx - startDarg.dx;
-    final per = dragDistance / context.size.width;
-    setState(() {
-      scrollPercant = (startDargPercantScroll + (-per / data.length))
-          .clamp(0.0, 1.0 - (1 / data.length));
-    });
-  }
-
-  void _onHorizontalDragEnd(DragEndDetails detail) {
-    finishScrollStart = scrollPercant;
-    finishScrollEnd = (scrollPercant * data.length).round() / data.length;
-    finishScrollController.forward(from: 0.0);
-
-    setState(() {
-      startDarg = null;
-      startDargPercantScroll = null;
-    });
+  bool _onScroll(ScrollNotification s) {
+    double screenSize = MediaQuery.of(context).size.width;
+    double current = s.metrics.pixels;
+    if (s is ScrollStartNotification) {
+      // print(s.metrics.pixels);
+      startDarg = s.metrics.pixels;
+      startDargPercantScroll = scrollPercant;
+    }
+    if (s is ScrollUpdateNotification) {
+      double distance = current - startDarg;
+      final per = distance / screenSize;
+      setState(() {
+        scrollPercant = (startDargPercantScroll + (-per / data.length))
+            .clamp(0.0, 1.0 - (1 / data.length));
+      });
+    }
+    if (s is ScrollEndNotification) {
+      finishScrollStart = scrollPercant;
+      finishScrollEnd = (scrollPercant * data.length).round() / data.length;
+      setState(() {
+        startDarg = null;
+        startDargPercantScroll = null;
+      });
+    }
+    return false;
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: new GestureDetector(
-        onHorizontalDragStart: _onHorizontalDragStart,
-        onHorizontalDragUpdate: _onHorizontalDragUpdate,
-        onHorizontalDragEnd: _onHorizontalDragEnd,
-        behavior: HitTestBehavior.translucent,
-        child: new Stack(
-          children: this._buildViews(),
-        ),
+        body: new NotificationListener<ScrollNotification>(
+      onNotification: _onScroll,
+      child: new CustomScrollView(
+        scrollDirection: Axis.horizontal,
+        controller: _scrollController,
+        slivers: this._buildViews(),
       ),
-    );
+    ));
   }
 
   List<Widget> _buildViews() {
     return [
-      _buildView(0, data.length, scrollPercant),
-      _buildView(1, data.length, scrollPercant),
-      _buildView(2, data.length, scrollPercant),
+      new SliverToBoxAdapter(
+        child: _buildView(1, data.length, scrollPercant),
+      ),
+      new SliverToBoxAdapter(
+        child: _buildView(1, data.length, scrollPercant),
+      ),
+      new SliverToBoxAdapter(
+        child: _buildView(1, data.length, scrollPercant),
+      ),
     ];
   }
 
   Widget _buildView(int cardIndex, int count, double scroll) {
-    final cardScroll = scroll / (1 / data.length);
-
     final parallax = scrollPercant - (cardIndex / data.length);
 
-    return new FractionalTranslation(
-      translation: new Offset(cardIndex - cardScroll, 0.0),
-      child: new Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: new Content(
-          logoLink: data[cardIndex]['logoLink'],
-          shoeImage: data[cardIndex]['shoeImage'],
-          headerHeading: data[cardIndex]['headerHeading'],
-          headerDescription: data[cardIndex]['headerDescription'],
-          contentHeading: data[cardIndex]['contentHeading'],
-          contentSubHeading: data[cardIndex]['contentSubHeading'],
-          contentBadge: data[cardIndex]['contentBadge'],
-          colors: data[cardIndex]['colors'],
-          parallax: parallax,
-        ),
+    return new Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: new Content(
+        logoLink: data[cardIndex]['logoLink'],
+        shoeImage: data[cardIndex]['shoeImage'],
+        headerHeading: data[cardIndex]['headerHeading'],
+        headerDescription: data[cardIndex]['headerDescription'],
+        contentHeading: data[cardIndex]['contentHeading'],
+        contentSubHeading: data[cardIndex]['contentSubHeading'],
+        contentBadge: data[cardIndex]['contentBadge'],
+        colors: data[cardIndex]['colors'],
+        parallax: parallax,
       ),
     );
   }

@@ -21,6 +21,7 @@ dependencies:
   firebase_auth: ^0.5.5
   firebase_database: ^0.4.6
   firebase_storage: ^0.3.0
+  flutter_gallery_assets: 0.1.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -43,6 +44,28 @@ flutter:
    - assets/shoes/blue.png
    - assets/shoes/yellow.png
    - assets/shoes/red.png
+   - packages/flutter_gallery_assets/products/backpack.png
+   - packages/flutter_gallery_assets/products/belt.png
+   - packages/flutter_gallery_assets/products/cup.png
+   - packages/flutter_gallery_assets/products/deskset.png
+   - packages/flutter_gallery_assets/products/dress.png
+   - packages/flutter_gallery_assets/products/earrings.png
+   - packages/flutter_gallery_assets/products/flatwear.png
+   - packages/flutter_gallery_assets/products/hat.png
+   - packages/flutter_gallery_assets/products/jacket.png
+   - packages/flutter_gallery_assets/products/jumper.png
+   - packages/flutter_gallery_assets/products/kitchen_quattro.png
+   - packages/flutter_gallery_assets/products/napkins.png
+   - packages/flutter_gallery_assets/products/planters.png
+   - packages/flutter_gallery_assets/products/platter.png
+   - packages/flutter_gallery_assets/products/scarf.png
+   - packages/flutter_gallery_assets/products/shirt.png
+   - packages/flutter_gallery_assets/products/sunnies.png
+   - packages/flutter_gallery_assets/products/sweater.png
+   - packages/flutter_gallery_assets/products/sweats.png
+   - packages/flutter_gallery_assets/products/table.png
+   - packages/flutter_gallery_assets/products/teaset.png
+   - packages/flutter_gallery_assets/products/top.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 

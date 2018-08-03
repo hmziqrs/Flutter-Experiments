@@ -5,6 +5,8 @@ import 'pages/Home/main.dart';
 import 'pages/screen.dart';
 import 'pages/FriendlyChat/main.dart';
 import 'pages/ShoesConcept/main.dart';
+import 'pages/ShoesConceptOptimize/main.dart';
+import 'pages/AnimationDemo/main.dart';
 
 class AppNavigator extends StatelessWidget {
   final ThemeData theme = defaultTargetPlatform == TargetPlatform.iOS
@@ -26,6 +28,9 @@ class AppNavigator extends StatelessWidget {
         '/screen': (BuildContext context) => new Screen(),
         '/friendlyChat': (BuildContext context) => new FriendlyChat(),
         '/shoesConcept': (BuildContext context) => new ShoesConcept(),
+        '/shoesConceptOptimize': (BuildContext context) =>
+            new ShoesConceptOptimize(),
+        '/animationDemo': (BuildContext context) => new AnimationDemo(),
       },
       theme: theme,
     );

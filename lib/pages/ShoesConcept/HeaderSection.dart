@@ -48,7 +48,7 @@ class HeaderSection extends StatelessWidget {
               ),
             ),
             new FractionalTranslation(
-              translation: new Offset(0.0 - parallax * 1.6, 0.0),
+              translation: new Offset(0.0 - parallax * 4.6, 0.0),
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[

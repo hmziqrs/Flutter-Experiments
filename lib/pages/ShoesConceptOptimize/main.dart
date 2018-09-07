@@ -55,41 +55,65 @@ class ShoesConceptOptimize extends StatefulWidget {
   State<StatefulWidget> createState() => new ShoesConceptOptimizeState();
 }
 
-class ShoesConceptOptimizeState extends State<ShoesConceptOptimize> {
+class ShoesConceptOptimizeState extends State<ShoesConceptOptimize>
+    with TickerProviderStateMixin {
   double scrollPercant = 0.0;
   double startDarg;
   double startDargPercantScroll;
   double finishScrollStart;
   double finishScrollEnd;
   ScrollController _scrollController = new ScrollController();
+  AnimationController finishScrollController;
 
   @override
   initState() {
+    finishScrollController = new AnimationController(
+      duration: new Duration(milliseconds: 300),
+      vsync: this,
+    )..addListener(() {
+        print("I'm listening");
+        // print(finishScrollController.value);
+        // print(finishScrollStart);
+        // print(finishScrollEnd);
+        final endScroll = lerpDouble(
+            finishScrollStart, finishScrollEnd, finishScrollController.value);
+        this.setEndState(endScroll);
+      });
+
     super.initState();
+  }
+
+  setEndState(double no) {
+    setState(() {
+      scrollPercant = no;
+    });
   }
 
   @override
   dispose() {
     super.dispose();
+    _scrollController.dispose();
+    finishScrollController.dispose();
   }
 
   bool _onScroll(ScrollNotification s) {
     double screenSize = MediaQuery.of(context).size.width;
-    double current = s.metrics.pixels;
     if (s is ScrollStartNotification) {
-      // print(s.metrics.pixels);
-      startDarg = s.metrics.pixels;
+      startDarg = s.dragDetails.globalPosition.dx;
       startDargPercantScroll = scrollPercant;
     }
     if (s is ScrollUpdateNotification) {
-      double distance = current - startDarg;
+      // print(s.dragDetails.globalPosition.dx);
+      double distance = s.dragDetails.globalPosition.dx - startDarg;
       final per = distance / screenSize;
       setState(() {
         scrollPercant = (startDargPercantScroll + (-per / data.length))
             .clamp(0.0, 1.0 - (1 / data.length));
       });
     }
+
     if (s is ScrollEndNotification) {
+      finishScrollController.forward(from: 0.0);
       finishScrollStart = scrollPercant;
       finishScrollEnd = (scrollPercant * data.length).round() / data.length;
       setState(() {
@@ -116,18 +140,20 @@ class ShoesConceptOptimizeState extends State<ShoesConceptOptimize> {
   List<Widget> _buildViews() {
     return [
       new SliverToBoxAdapter(
-        child: _buildView(1, data.length, scrollPercant),
+        child: _buildView(0, data.length, scrollPercant),
       ),
       new SliverToBoxAdapter(
         child: _buildView(1, data.length, scrollPercant),
       ),
       new SliverToBoxAdapter(
-        child: _buildView(1, data.length, scrollPercant),
+        child: _buildView(2, data.length, scrollPercant),
       ),
     ];
   }
 
   Widget _buildView(int cardIndex, int count, double scroll) {
+    // print(cardIndex);
+    // print(scrollPercant);
     final parallax = scrollPercant - (cardIndex / data.length);
 
     return new Container(

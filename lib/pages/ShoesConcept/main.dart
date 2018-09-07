@@ -67,10 +67,14 @@ class ShoesConceptState extends State<ShoesConcept>
   @override
   initState() {
     finishScrollController = new AnimationController(
-      duration: new Duration(milliseconds: 150),
+      duration: new Duration(milliseconds: 300),
       vsync: this,
     )..addListener(() {
         setState(() {
+          // print('addListener');
+          // print(finishScrollStart);
+          // print(finishScrollEnd);
+          print(finishScrollController.value);
           scrollPercant = lerpDouble(
               finishScrollStart, finishScrollEnd, finishScrollController.value);
         });
@@ -85,6 +89,8 @@ class ShoesConceptState extends State<ShoesConcept>
   }
 
   void _onHorizontalDragStart(DragStartDetails detail) {
+    // print('_onHorizontalDragStart(');
+    // print(detail.globalPosition);
     startDarg = detail.globalPosition;
     startDargPercantScroll = scrollPercant;
   }
@@ -135,7 +141,8 @@ class ShoesConceptState extends State<ShoesConcept>
 
   Widget _buildView(int cardIndex, int count, double scroll) {
     final cardScroll = scroll / (1 / data.length);
-
+    // print(cardIndex);
+    // print(scrollPercant);
     final parallax = scrollPercant - (cardIndex / data.length);
 
     return new FractionalTranslation(

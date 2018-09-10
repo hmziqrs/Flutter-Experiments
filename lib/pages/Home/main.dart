@@ -38,6 +38,11 @@ class HomeScreen extends StatelessWidget {
                   onPress: () =>
                       Navigator.of(context).pushNamed('/animationDemo'),
                 ),
+                new GradientButton(
+                  child: new Text('Flutter Planets Concept'),
+                  onPress: () =>
+                      Navigator.of(context).pushNamed('/planetsHome'),
+                ),
               ],
             ),
           )

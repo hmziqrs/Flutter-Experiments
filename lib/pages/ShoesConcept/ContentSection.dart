@@ -27,8 +27,8 @@ class ContentSection extends StatefulWidget {
 }
 
 class ContentSectionState extends State<ContentSection> {
-  static const List<int> _ratings = <int>[1, 2, 3, 4, 5];
-  static const List<int> _sizes = <int>[7, 8, 9, 10, 11];
+  static final List<int> _ratings = <int>[1, 2, 3, 4, 5];
+  static final List<int> _sizes = <int>[7, 8, 9, 10, 11];
 
   int _currentRating = 0;
   int _currentSize = 0;
@@ -51,7 +51,7 @@ class ContentSectionState extends State<ContentSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return new Container(
       padding: const EdgeInsets.only(
         top: 32.0,
         right: 24.0,

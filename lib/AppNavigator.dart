@@ -8,6 +8,8 @@ import 'pages/ShoesConcept/main.dart';
 import 'pages/ShoesConceptOptimize/main.dart';
 import 'pages/AnimationDemo/main.dart';
 import 'pages/Planets/main.dart';
+import 'pages/SharedElement/Home.dart';
+import 'pages/SharedElement/Transition.dart';
 
 class AppNavigator extends StatelessWidget {
   final ThemeData theme = defaultTargetPlatform == TargetPlatform.iOS
@@ -23,7 +25,11 @@ class AppNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final RouteObserver<PageRoute> routeObserver =
+        new RouteObserver<PageRoute>();
+
     return new MaterialApp(
+      navigatorObservers: [routeObserver],
       home: new HomeScreen(),
       routes: <String, WidgetBuilder>{
         '/screen': (BuildContext context) => new Screen(),
@@ -33,6 +39,9 @@ class AppNavigator extends StatelessWidget {
             new ShoesConceptOptimize(),
         '/animationDemo': (BuildContext context) => new AnimationDemo(),
         '/planetsHome': (BuildContext context) => new PlanetHome(),
+        '/sharedElementHome': (BuildContext context) => new SharedElementHome(),
+        '/sharedElementTransition': (BuildContext context) =>
+            new SharedElementTransition(routeObserver),
       },
       theme: theme,
     );

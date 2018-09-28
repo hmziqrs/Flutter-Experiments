@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pigment/pigment.dart';
 
 class Wrapper extends StatelessWidget {
   Wrapper(this.content);
@@ -12,7 +11,6 @@ class Wrapper extends StatelessWidget {
       body: new DefaultTextStyle(
         style: new TextStyle(
           fontFamily: 'Poppins',
-          // color: Pigment.fromString('#000000'),
         ),
         child: content,
       ),

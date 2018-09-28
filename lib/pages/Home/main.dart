@@ -43,6 +43,11 @@ class HomeScreen extends StatelessWidget {
                   onPress: () =>
                       Navigator.of(context).pushNamed('/planetsHome'),
                 ),
+                new GradientButton(
+                  child: new Text('SharedElement'),
+                  onPress: () =>
+                      Navigator.of(context).pushNamed('/sharedElementHome'),
+                ),
               ],
             ),
           )

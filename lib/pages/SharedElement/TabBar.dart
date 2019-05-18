@@ -41,11 +41,6 @@ class TabBar extends StatelessWidget {
 
   Future<bool> willPop() async {
     this.backPressedCallback();
-    print('Future<bool> willPop() async {');
-    // print(canGo);
-    // print(forceBlock);
-    print((canGo && forceBlock == false).toString());
-    // return true;
     return (canGo && forceBlock == false);
   }
 
@@ -117,9 +112,6 @@ class TabBarItemState extends State<TabBarItem> {
 
   @override
   void initState() {
-    // print('init State');
-    // print(widget.index);
-    // TODO: implement initState
     var future =
         new Future.delayed(new Duration(milliseconds: 200 * widget.index));
     subscription = future.asStream().listen(

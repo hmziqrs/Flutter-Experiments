@@ -10,3 +10,5 @@ packages
 pubspec.lock
 .flutter-plugins
 Thumbs.db
+
+node_modules

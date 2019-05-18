@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:experimint/Widgets/GradientButton.dart';
 
 class HomeScreen extends StatelessWidget {
+  final list = [
+    {'route': '/friendlyChat', 'name': 'Friendly Chat'},
+    {'route': '/shoesConcept', 'name': 'Shoes Concept'},
+    {'route': '/shoesConceptOptimize', 'name': 'Shoes Concept Optimize'},
+    {'route': '/animationDemo', 'name': 'Animation Concept'},
+    {'route': '/planetsHome', 'name': 'Flutter Planets Concept'},
+    {'route': '/sharedElementHome', 'name': 'SharedElement'},
+    {'route': '/marcinHome', 'name': 'Marcin Home'},
+  ];
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -13,42 +23,13 @@ class HomeScreen extends StatelessWidget {
         children: <Widget>[
           new Flexible(
             child: new Column(
-              children: <Widget>[
-                new RaisedButton(
-                  child: new Text('buttre'),
-                  onPressed: () => Navigator.of(context).pushNamed('/screen'),
-                ),
-                new GradientButton(
-                  child: new Text('Friendly Chat'),
-                  onPress: () =>
-                      Navigator.of(context).pushNamed('/friendlyChat'),
-                ),
-                new GradientButton(
-                  child: new Text('Shoes Concept'),
-                  onPress: () =>
-                      Navigator.of(context).pushNamed('/shoesConcept'),
-                ),
-                new GradientButton(
-                  child: new Text('Shoes Concept Optimize'),
-                  onPress: () =>
-                      Navigator.of(context).pushNamed('/shoesConceptOptimize'),
-                ),
-                new GradientButton(
-                  child: new Text('Animation Concept'),
-                  onPress: () =>
-                      Navigator.of(context).pushNamed('/animationDemo'),
-                ),
-                new GradientButton(
-                  child: new Text('Flutter Planets Concept'),
-                  onPress: () =>
-                      Navigator.of(context).pushNamed('/planetsHome'),
-                ),
-                new GradientButton(
-                  child: new Text('SharedElement'),
-                  onPress: () =>
-                      Navigator.of(context).pushNamed('/sharedElementHome'),
-                ),
-              ],
+              children: list
+                  .map((obj) => new GradientButton(
+                        child: new Text(obj['name']),
+                        onPress: () =>
+                            Navigator.of(context).pushNamed(obj['route']),
+                      ))
+                  .toList(),
             ),
           )
         ],

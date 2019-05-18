@@ -19,6 +19,7 @@ class SharedElementTransitionState extends State<SharedElementTransition>
   bool canGo = false;
   bool backPressed = false;
   var subscription;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -32,23 +33,12 @@ class SharedElementTransitionState extends State<SharedElementTransition>
   }
 
   void didPush() {
-    // debugPrint("didPush ${runtimeType}");
     var future = new Future.delayed(const Duration(milliseconds: 330));
     subscription = future.asStream().listen(
           (e) => setState(() {
                 isVisible = true;
               }),
         );
-
-    setState(() {
-      // isVisible = true;
-    });
-  }
-
-  // Called when the current route has been popped off.
-  void didPop() {
-    // debugPrint("didPop ${runtimeType}");
-    subscription.cancel();
   }
 
   setCanGo(bool flag) {

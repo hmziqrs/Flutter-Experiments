@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
 import 'pages/Home/main.dart';
+import 'pages/Init/main.dart';
 import 'pages/screen.dart';
 import 'pages/FriendlyChat/main.dart';
 import 'pages/ShoesConcept/main.dart';
@@ -10,6 +11,8 @@ import 'pages/AnimationDemo/main.dart';
 import 'pages/Planets/main.dart';
 import 'pages/SharedElement/Home.dart';
 import 'pages/SharedElement/Transition.dart';
+import 'Marcin/screens/Home/main.dart';
+import 'Marcin/screens/ListView/main.dart';
 
 class AppNavigator extends StatelessWidget {
   final ThemeData theme = defaultTargetPlatform == TargetPlatform.iOS
@@ -30,8 +33,9 @@ class AppNavigator extends StatelessWidget {
 
     return new MaterialApp(
       navigatorObservers: [routeObserver],
-      home: new HomeScreen(),
+      home: new InitApp(context),
       routes: <String, WidgetBuilder>{
+        '/home': (BuildContext context) => new HomeScreen(),
         '/screen': (BuildContext context) => new Screen(),
         '/friendlyChat': (BuildContext context) => new FriendlyChat(),
         '/shoesConcept': (BuildContext context) => new ShoesConcept(),
@@ -42,6 +46,8 @@ class AppNavigator extends StatelessWidget {
         '/sharedElementHome': (BuildContext context) => new SharedElementHome(),
         '/sharedElementTransition': (BuildContext context) =>
             new SharedElementTransition(routeObserver),
+        '/marcinHome': (BuildContext context) => new MarcinHome(),
+        '/marcinListView': (BuildContext context) => new MarcinListView(),
       },
       theme: theme,
     );

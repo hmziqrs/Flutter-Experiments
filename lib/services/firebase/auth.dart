@@ -8,8 +8,14 @@ class Auth {
   FirebaseUser _user;
 
   Future<FirebaseUser> signInWithGoogle({idToken, accessToken}) async {
-    final googleUser =
-        await _ins.signInWithGoogle(idToken: idToken, accessToken: accessToken);
+    // final googleUser =
+    //     await _ins.signInWithGoogle(idToken: idToken, accessToken: accessToken);
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: accessToken,
+      idToken: idToken,
+    );
+
+    final googleUser = await _ins.signInWithCredential(credential);
     this._user = googleUser;
     return googleUser;
   }

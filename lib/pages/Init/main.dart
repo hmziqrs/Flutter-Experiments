@@ -50,10 +50,11 @@ class _InitAppState extends State<InitApp> {
   }
 
   Future googleLogin() async {
-    print('GOOGLE LOGIN');
+    print('GOOGLE LOGIN ****');
     try {
-      final googleUser = (await googleSignIn.signInSilently()) ??
-          (await googleSignIn.signIn());
+      final googleUser =
+          (await googleSignIn.signInSilently(suppressErrors: false)) ??
+              (await googleSignIn.signIn());
       // final googleUser = (await googleSignIn.signInSilently()) ??
       //     (await googleSignIn.signIn());
       final authentication = await googleUser.authentication;
@@ -65,7 +66,7 @@ class _InitAppState extends State<InitApp> {
       final query = await _fireStore.document(user.uid).get();
       print('*****************');
       print(query.toString());
-      Navigator.of(widget.parentContext).pushReplacementNamed('/home');
+      Navigator.of(context).pushReplacementNamed('/home');
     } catch (e) {
       print("%%%%%%%%%%%%%%%");
       print(e.toString());
@@ -74,10 +75,13 @@ class _InitAppState extends State<InitApp> {
 
   Future init() async {
     final user = await auth.currentUser();
+    print('&&&&&');
+    print(user);
     if (user != null) {
       setState(() {
         this._loading = false;
         this._user = user;
+        Navigator.of(context).pushReplacementNamed('/home');
       });
     }
   }

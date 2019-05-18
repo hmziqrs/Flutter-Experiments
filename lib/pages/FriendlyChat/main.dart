@@ -65,7 +65,8 @@ class ChatScreenState extends State<ChatScreen> {
     int random = new Random().nextInt(100000);
     StorageReference ref = StorageFirebase.getRef("image_$random");
     var task = ref.putFile(image);
-    Uri url = (await task.future).downloadUrl;
+    var taskRef = (await task.onComplete);
+    Uri url = (await taskRef.ref.getDownloadURL());
     _sendMessage(image: url.toString());
   }
 

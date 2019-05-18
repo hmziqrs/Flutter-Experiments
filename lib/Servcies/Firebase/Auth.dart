@@ -11,8 +11,15 @@ class AuthFirebase {
   static Future<Null> auth() async {
     _user = await AuthGoogle.authGoogle();
     final credentials = await _user.authentication;
-    await _instance.signInWithGoogle(
-        idToken: credentials.idToken, accessToken: credentials.accessToken);
+    // await _instance.signInWithGoogle(
+    //     idToken: credentials.idToken, accessToken: credentials.accessToken);
+
+    final AuthCredential authCredential = GoogleAuthProvider.getCredential(
+      accessToken: credentials.accessToken,
+      idToken: credentials.idToken,
+    );
+
+    await _instance.signInWithCredential(authCredential);
   }
 
   static GoogleSignInAccount getUser() => _user;

@@ -22,12 +22,12 @@ class MyTheme {
   }
 }
 
-class RandomWords extends StatefulWidget {
+class WordGenerator extends StatefulWidget {
   @override
   createState() => new RandomWordsState();
 }
 
-class RandomWordsState extends State<RandomWords> {
+class RandomWordsState extends State<WordGenerator> {
   final _suggestions = <WordPair>[];
   final _saved = new Set<WordPair>();
   final _biggerFont = const TextStyle(fontSize: 18.0);
@@ -112,12 +112,14 @@ class RandomWordsState extends State<RandomWords> {
   }
 }
 
-class WordGenerator extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-        title: 'Experiments',
-        theme: new ThemeData(primarySwatch: MyTheme.getPrimary()),
-        home: new RandomWords());
-  }
-}
+// class WordGenerator extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return new Scaffold(
+//       appBar: AppBar(
+//         title: Text("Word Generator"),
+//       ),
+//       body: new RandomWords(),
+//     );
+//   }
+// }

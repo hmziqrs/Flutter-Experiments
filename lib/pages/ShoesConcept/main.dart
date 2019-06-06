@@ -71,10 +71,6 @@ class ShoesConceptState extends State<ShoesConcept>
       vsync: this,
     )..addListener(() {
         setState(() {
-          // print('addListener');
-          // print(finishScrollStart);
-          // print(finishScrollEnd);
-          print(finishScrollController.value);
           scrollPercant = lerpDouble(
               finishScrollStart, finishScrollEnd, finishScrollController.value);
         });

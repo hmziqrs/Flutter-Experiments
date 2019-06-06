@@ -36,6 +36,7 @@ class AppNavigator extends StatelessWidget {
       navigatorObservers: [routeObserver],
       home: new InitApp(context),
       routes: <String, WidgetBuilder>{
+        '/init': (BuildContext context) => new InitApp(context),
         '/home': (BuildContext context) => new HomeScreen(),
         '/screen': (BuildContext context) => new Screen(),
         '/friendlyChat': (BuildContext context) => new FriendlyChat(),

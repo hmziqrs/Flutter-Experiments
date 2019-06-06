@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:experimint/services/firebase/main.dart';
@@ -53,7 +54,7 @@ class _InitAppState extends State<InitApp> {
     print('GOOGLE LOGIN ****');
     try {
       final googleUser =
-          (await googleSignIn.signInSilently(suppressErrors: false)) ??
+          (await googleSignIn.signInSilently(suppressErrors: true)) ??
               (await googleSignIn.signIn());
       // final googleUser = (await googleSignIn.signInSilently()) ??
       //     (await googleSignIn.signIn());
@@ -64,11 +65,16 @@ class _InitAppState extends State<InitApp> {
       );
       await googleSignIn.signOut();
       final query = await _fireStore.document(user.uid).get();
-      print('*****************');
       print(query.toString());
       Navigator.of(context).pushReplacementNamed('/home');
+    } on PlatformException catch (e) {
+      print("PlatformException Error");
+      print(e.message);
+      print(e.details);
+      print(e.toString());
     } catch (e) {
-      print("%%%%%%%%%%%%%%%");
+      print("%%%%%%%%%%%%%%% Error");
+      print(e);
       print(e.toString());
     }
   }

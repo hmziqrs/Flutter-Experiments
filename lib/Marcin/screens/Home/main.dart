@@ -25,11 +25,13 @@ class MarcinHomeState extends State<MarcinHome> {
         child: Center(
           child: Column(
             children: list
-                .map((obj) => new RaisedButton(
-                      child: new Text(obj["name"]),
-                      onPressed: () =>
-                          Navigator.of(context).pushNamed(obj["route"]),
-                    ))
+                .map(
+                  (obj) => new RaisedButton(
+                        child: new Text(obj["name"]),
+                        onPressed: () =>
+                            Navigator.of(context).pushNamed(obj["route"]),
+                      ),
+                )
                 .toList(),
           ),
         ),

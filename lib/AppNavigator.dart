@@ -7,6 +7,7 @@ import 'pages/screen.dart';
 import 'pages/FriendlyChat/main.dart';
 import 'pages/ShoesConcept/main.dart';
 import 'pages/ShoesConceptOptimize/main.dart';
+import 'pages/WordGenerator/main.dart';
 import 'pages/AnimationDemo/main.dart';
 import 'pages/Planets/main.dart';
 import 'pages/SharedElement/Home.dart';
@@ -41,6 +42,7 @@ class AppNavigator extends StatelessWidget {
         '/shoesConcept': (BuildContext context) => new ShoesConcept(),
         '/shoesConceptOptimize': (BuildContext context) =>
             new ShoesConceptOptimize(),
+        '/wordGenerator': (BuildContext context) => new WordGenerator(),
         '/animationDemo': (BuildContext context) => new AnimationDemo(),
         '/planetsHome': (BuildContext context) => new PlanetHome(),
         '/sharedElementHome': (BuildContext context) => new SharedElementHome(),

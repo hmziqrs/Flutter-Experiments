@@ -8,6 +8,7 @@ class HomeScreen extends StatelessWidget {
     {'route': '/shoesConceptOptimize', 'name': 'Shoes Concept Optimize'},
     {'route': '/animationDemo', 'name': 'Animation Concept'},
     {'route': '/planetsHome', 'name': 'Flutter Planets Concept'},
+    {'route': '/wordGenerator', 'name': 'Word Generator'},
     {'route': '/sharedElementHome', 'name': 'SharedElement'},
     {'route': '/marcinHome', 'name': 'Marcin Home'},
   ];

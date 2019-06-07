@@ -50,7 +50,7 @@ class AppNavigator extends StatelessWidget {
         '/sharedElementTransition': (BuildContext context) =>
             new SharedElementTransition(routeObserver),
         '/marcinHome': (BuildContext context) => new MarcinHome(),
-        '/marcinListView': (BuildContext context) => new MarcinListView(),
+        '/marcinWeightTracker': (BuildContext context) => new WeightTracker(),
       },
       theme: theme,
     );

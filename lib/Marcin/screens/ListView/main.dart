@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import 'package:experimint/services/firebase/main.dart';
@@ -7,52 +8,49 @@ import 'package:experimint/services/firebase/main.dart';
 import './WeightListItem.dart';
 import './AddEntryDialog.dart';
 
-void main() => runApp(MaterialApp(
-      home: MarcinListView(),
-    ));
-
-class MarcinListView extends StatefulWidget {
+class WeightTracker extends StatefulWidget {
   @override
-  MarcinListViewState createState() => MarcinListViewState();
+  WeightTrackerState createState() => WeightTrackerState();
 }
 
-class MarcinListViewState extends State<MarcinListView> {
+class WeightTrackerState extends State<WeightTracker> {
   final List<WeightSave> list = new List();
   final ScrollController listController = new ScrollController();
+  final dbRef = database.marcinWeightTracker().child(auth.user.uid);
 
-  MarcinListViewState() {
-    database
-        .reference()
-        .child(auth.user.uid)
-        .onChildAdded
-        .listen(this.onChildAdded);
+  WeightTrackerState() {
+    // dbRef.once(e)
+    dbRef.onChildAdded.listen(this.onChildAdded);
+    dbRef.onChildChanged.listen(this.onChildEdited);
   }
 
-  onChildAdded(e) {
-    print(e);
+  onChildAdded(Event e) {
+    list.add(new WeightSave.fromSnaphost(e.snapshot));
+  }
+
+  onChildEdited(Event e) {
+    final old = list.singleWhere((obj) => obj.key == e.snapshot.key);
+    setState(() {
+      list[list.indexOf(old)] = new WeightSave.fromSnaphost(e.snapshot);
+    });
   }
 
   Future add() async {
-    final save = await this.openDialog();
-    print(save);
-    if (save != null) {
-      await database.reference().child(auth.user.uid).set(save.toJson());
+    try {
+      final save = await this.openDialog();
+      print('final save = await this.openDialog();');
+      print(save.toJson());
+      if (save != null) {
+        await dbRef.push().set(save.toJson());
+      }
+    } catch (e) {
+      print(e);
     }
   }
 
   Future edit(WeightSave weightSave) async {
-    print("****");
-    print(weightSave.toJson());
     final save = await this.openDialog(weightSave: weightSave);
-    print(save);
-    return;
-    setState(() {
-      if (save != null) {
-        list.add(save);
-      }
-      // list.add(new WeightSave(
-      //     new DateTime.now(), new Random().nextInt(100).toDouble()));
-    });
+    dbRef.child(save.key).set(save.toJson());
   }
 
   Future<WeightSave> openDialog({WeightSave weightSave}) async {
@@ -75,7 +73,7 @@ class MarcinListViewState extends State<MarcinListView> {
       ),
       body: new ListView.builder(
         // shrinkWrap: true,
-        reverse: true,
+        reverse: false,
         itemCount: list.length,
         controller: listController,
         itemBuilder: ((buildContext, index) {

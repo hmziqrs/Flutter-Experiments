@@ -11,14 +11,14 @@ class MarcinHome extends StatefulWidget {
 
 class MarcinHomeState extends State<MarcinHome> {
   final list = [
-    {'route': '/marcinListView', 'name': 'Marcin Home'},
+    {'route': '/marcinWeightTracker', 'name': 'Weight Tracker'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('text'),
+        title: Text('MARCIN SZAŁEK Tutorials'),
       ),
       body: Container(
         padding: EdgeInsets.all(32.0),

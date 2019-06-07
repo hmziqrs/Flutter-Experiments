@@ -8,6 +8,9 @@ class Database {
   }
 
   DatabaseReference reference() => _ins.reference();
+
+  DatabaseReference marcinWeightTracker() =>
+      _ins.reference().child('marcin-weight-tracker');
 }
 
 final database = new Database();

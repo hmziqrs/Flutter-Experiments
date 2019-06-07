@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -7,10 +8,19 @@ import 'package:intl/intl.dart';
 
 class WeightSave {
   WeightSave(this.dateTime, this.weight, this.note);
+  WeightSave.key(this.dateTime, this.weight, this.note, this.key);
 
   DateTime dateTime;
   double weight;
   String note;
+  String key;
+
+  WeightSave.fromSnaphost(DataSnapshot snapshot)
+      : key = snapshot.key,
+        dateTime =
+            new DateTime.fromMillisecondsSinceEpoch(snapshot.value["date"]),
+        weight = snapshot.value["weight"].toDouble(),
+        note = snapshot.value["note"];
 
   toJson() =>
       {"weight": weight, "date": dateTime.millisecondsSinceEpoch, "note": note};
@@ -60,7 +70,7 @@ class WeightListItem extends StatelessWidget {
             ),
             new Expanded(
               child: new Text(
-                weightDifference.toString(),
+                weightDifference.toStringAsFixed(2),
                 textAlign: TextAlign.right,
                 textScaleFactor: 1.6,
               ),

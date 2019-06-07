@@ -19,12 +19,14 @@ class AddEntryDialogState extends State<AddEntryDialog> {
   DateTime dateTime = new DateTime.now();
   double _weight = 0.0;
   String _note;
+  String _key;
 
   AddEntryDialogState({weightSave}) {
     if (weightSave != null) {
       dateTime = weightSave.dateTime;
       _weight = weightSave.weight;
       _note = weightSave.note;
+      _key = weightSave.key;
     }
   }
 
@@ -56,7 +58,10 @@ class AddEntryDialogState extends State<AddEntryDialog> {
   }
 
   save() {
-    final weight = new WeightSave(this.dateTime, this._weight, this._note);
+    final weight = this._key != null
+        ? new WeightSave.key(this.dateTime, this._weight, this._note, this._key)
+        : new WeightSave(this.dateTime, this._weight, this._note);
+
     Navigator.of(context).pop(weight);
   }
 
@@ -72,6 +77,10 @@ class AddEntryDialogState extends State<AddEntryDialog> {
     return new Scaffold(
       appBar: AppBar(
         title: Text('New Entry'),
+        leading: IconButton(
+          icon: BackButtonIcon(),
+          onPressed: () => Navigator.pop(context, null),
+        ),
         actions: <Widget>[
           new FlatButton(
             onPressed: this.save,
@@ -82,7 +91,7 @@ class AddEntryDialogState extends State<AddEntryDialog> {
                   .subhead
                   .copyWith(color: Colors.white),
             ),
-          )
+          ),
         ],
       ),
       body: Container(
